@@ -2,15 +2,14 @@ package com.ecommerce.project.controller;
 
 import com.ecommerce.project.model.Category;
 import com.ecommerce.project.service.CategoryServiceImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class CategoryController {
 
     private CategoryServiceImpl categoryService;
@@ -18,14 +17,27 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("api/public/categories")
+    @GetMapping("/public/categories")
     public List<Category> getCategories() {
         return categoryService.getAllCategories();
     }
 
-    @PostMapping("api/public/categories")
-    public String createCategory(@RequestBody Category category) {
-        return categoryService.createCategory(category);
+    @PostMapping("/public/categories")
+    public ResponseEntity<?> createCategory(@RequestBody Category category) {
+        String status = categoryService.createCategory(category);
+        return ResponseEntity.status(HttpStatus.CREATED).body(status);
+    }
+
+    @DeleteMapping("/admin/categories/{categoryId}")
+    public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId) {
+        String status = categoryService.deleteCategory(categoryId);
+        return ResponseEntity.ok(status);
+    }
+
+    @PutMapping("/admin/categories/{categoryId}")
+    public ResponseEntity<?> updateCategory(@RequestBody Category category, @PathVariable Long categoryId) {
+        String status = categoryService.updateCategory(categoryId, category);
+        return ResponseEntity.ok(status);
     }
 
 }
