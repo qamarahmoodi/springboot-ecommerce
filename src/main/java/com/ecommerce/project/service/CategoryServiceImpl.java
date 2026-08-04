@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category existingCategory = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not Found"));
         categoryRepository.delete(existingCategory);
-        return "Category with ID:" + categoryId + " deleted";
+        return "Category with ID: " + categoryId + " deleted";
     }
 
     @Override
