@@ -1,6 +1,5 @@
 package com.ecommerce.project.exceptions;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,5 +29,10 @@ public class MyGlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 
+    @ExceptionHandler(APIException.class)
+    public ResponseEntity<?> myAPIException(APIException e) {
+        String message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+    }
 
 }
