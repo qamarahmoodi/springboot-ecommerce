@@ -26,13 +26,13 @@ public class MyGlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> myResourceNotFoundException(ResourceNotFoundException e) {
         String message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIResponse(message, false));
     }
 
     @ExceptionHandler(APIException.class)
     public ResponseEntity<?> myAPIException(APIException e) {
         String message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new APIResponse(message, false));
     }
 
 }
