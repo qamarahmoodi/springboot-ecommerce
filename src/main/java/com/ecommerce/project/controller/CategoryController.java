@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class CategoryController {
 
-    private CategoryServiceImpl categoryService;
+    private final CategoryServiceImpl categoryService;
     public CategoryController(CategoryServiceImpl categoryService) {
         this.categoryService = categoryService;
     }
@@ -21,7 +21,7 @@ public class CategoryController {
     @GetMapping("/public/categories")
     public ResponseEntity<?> getCategories(@RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER) Integer pageNumber,
                                            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE) Integer pageSize,
-                                           @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_CAT_BY) String sortBy,
+                                           @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_CATEGORY_BY) String sortBy,
                                            @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIRECTION) String sortOrder) {
         CategoryResponse categoryResponse = categoryService.getAllCategories(pageNumber, pageSize, sortBy, sortOrder);
         return ResponseEntity.ok(categoryResponse);
